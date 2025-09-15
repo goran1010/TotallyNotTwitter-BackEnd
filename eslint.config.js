@@ -15,5 +15,13 @@ export default defineConfig([
       "no-console": "warn",
     },
   },
+  {
+    files: ["**/*.test.js", "**/*.spec.js"],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
+  },
   eslintConfigPrettier,
 ]);
