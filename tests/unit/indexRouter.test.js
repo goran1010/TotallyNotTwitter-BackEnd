@@ -6,6 +6,14 @@ import request from "supertest";
 app.use(express.urlencoded({ extended: false }));
 app.use("/", indexRouter);
 
-test("index route works", (done) => {
-  request(app).get("/").expect("Content-Type", /json/).expect(200, done);
+describe("indexRouter", () => {
+  test("root route works", (done) => {
+    request(app).get("/").expect("Content-Type", /json/).expect(200, done);
+  });
+  test("signup route works", (done) => {
+    request(app)
+      .post("/signup")
+      .expect("Content-Type", /json/)
+      .expect(200, done);
+  });
 });
