@@ -1,3 +1,3 @@
-export default function apiController(req, res) {
-  res.status(200).json("OK");
+export function signUp(req, res) {
+  res.status(200).json();
 }
