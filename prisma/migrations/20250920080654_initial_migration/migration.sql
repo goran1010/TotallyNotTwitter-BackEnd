@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Session" (
+CREATE TABLE "public"."Session" (
     "id" TEXT NOT NULL,
     "sid" TEXT NOT NULL,
     "data" TEXT NOT NULL,
@@ -9,16 +9,20 @@ CREATE TABLE "Session" (
 );
 
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "public"."User" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Session_sid_key" ON "Session"("sid");
+CREATE UNIQUE INDEX "Session_sid_key" ON "public"."Session"("sid");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+CREATE UNIQUE INDEX "User_username_key" ON "public"."User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "public"."User"("email");
