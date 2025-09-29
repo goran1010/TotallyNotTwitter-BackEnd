@@ -33,6 +33,7 @@ describe("POST /signup route", () => {
       username: "test_user",
       email: "testuser@example.com",
       password: "secure_password123",
+      confirmPassword: "secure_password123",
     });
 
     expect(response.headers["content-type"]).toMatch(/json/);
