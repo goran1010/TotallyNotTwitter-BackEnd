@@ -16,12 +16,14 @@ import path from "node:path";
 const assetsPath = path.join(import.meta.dirname, "public");
 app.use(express.static(assetsPath));
 
-import apiRouter from "./routes/apiRouter.js";
+import indexRouter from "./routes/indexRouter.js";
+import statusRouter from "./routes/statusRouter.js";
 
 app.use(sessionMiddleware);
 app.use(passport.session());
 
-app.use("/", apiRouter);
+app.use("/status", statusRouter);
+app.use("/", indexRouter);
 
 app.use((req, res) => {
   res.status(404).json("No resource found");
