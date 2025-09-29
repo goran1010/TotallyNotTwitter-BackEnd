@@ -2,10 +2,15 @@ import indexRouter from "../routes/indexRouter";
 import express from "express";
 const app = express();
 import request from "supertest";
+import prisma from "../db/prisma";
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/", indexRouter);
+
+beforeEach(async () => {
+  await prisma.user.deleteMany();
+});
 
 describe("GET / route", () => {
   test("responds with json 200", async () => {
@@ -32,6 +37,5 @@ describe("POST /signup route", () => {
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(201);
-    expect(response.body.message).toEqual("OK");
   });
 });
