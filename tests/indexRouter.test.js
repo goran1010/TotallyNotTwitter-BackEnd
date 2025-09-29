@@ -7,21 +7,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/", indexRouter);
 
-describe("indexRouter", () => {
-  test("GET / route responds with json 200", async () => {
+describe("GET / route", () => {
+  test("responds with json 200", async () => {
     const response = await request(app).get("/");
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
     expect(response.body.message).toEqual("OK");
   });
+});
 
-  test("POST /signup route responds with json 400 for empty input", async () => {
+describe("POST /signup route", () => {
+  test("responds with json 400 for empty input", async () => {
     const response = await request(app).post("/signup").send({});
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(400);
   });
 
-  test("POST /signup route responds with json 201 when valid data is provided", async () => {
+  test("responds with json 201 when valid data is provided", async () => {
     const response = await request(app).post("/signup").send({
       username: "test_user",
       email: "testuser@example.com",

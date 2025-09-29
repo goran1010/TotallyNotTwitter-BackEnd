@@ -21,7 +21,7 @@ import apiRouter from "./routes/apiRouter.js";
 app.use(sessionMiddleware);
 app.use(passport.session());
 
-app.use("/api", apiRouter);
+app.use("/", apiRouter);
 
 app.use((req, res) => {
   res.status(404).json("No resource found");
