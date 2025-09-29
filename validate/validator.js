@@ -38,4 +38,23 @@ const createUser = [
   },
 ];
 
-export { createUser };
+const logInUser = [
+  body("username")
+    .trim()
+    .isLength({ min: 5, max: 30 })
+    .withMessage(`Username has to be between 5 and 30 characters long`),
+  body("password")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 5, max: 30 })
+    .withMessage("Password must be between 5 and 30 characters long"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json(errors.array()[0]);
+    }
+    next();
+  },
+];
+
+export { createUser, logInUser };

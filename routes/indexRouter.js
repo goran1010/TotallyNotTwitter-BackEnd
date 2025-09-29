@@ -12,4 +12,11 @@ indexRouter.post(
   indexController.signUp,
 );
 
+indexRouter.post(
+  "/login",
+  isNotLoggedIn,
+  validator.logInUser,
+  indexController.logIn,
+);
+
 export default indexRouter;
