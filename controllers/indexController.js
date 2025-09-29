@@ -11,10 +11,10 @@ export async function signUp(req, res) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: { username, email, password: hashedPassword },
     });
-    return res.status(201).json({ username: user.username });
+    return res.status(201).json({ message: "User created successfully" });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
@@ -35,6 +35,6 @@ export async function logIn(req, res) {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    return res.status(400).json({ message: "Unable to create a user" });
+    return res.status(400).json({ message: "Unable to log in a user" });
   }
 }
