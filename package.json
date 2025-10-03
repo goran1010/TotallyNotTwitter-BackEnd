@@ -4,7 +4,7 @@
   "description": "express template for new projects",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test jest --watch --detectOpenHandles",
     "dev": "node --watch index.js",
     "start": "node index.js"
   },
