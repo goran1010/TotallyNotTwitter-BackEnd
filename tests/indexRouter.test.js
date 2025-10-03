@@ -1,12 +1,6 @@
-import indexRouter from "../routes/indexRouter";
-import express from "express";
-const app = express();
 import request from "supertest";
-import prisma from "../db/prisma";
-
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use("/", indexRouter);
+import app from "../app.js";
+import prisma from "../db/prisma.js";
 
 beforeEach(async () => {
   await prisma.user.deleteMany();
@@ -81,5 +75,22 @@ describe("POST /signup route", () => {
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(201);
+  });
+});
+
+describe("POST /login route", () => {
+  test("responds with status 200 if user correctly logged in", async () => {
+    await request(app).post("/signup").send({
+      username: "test_user",
+      email: "testuser@example.com",
+      password: "secure_password123",
+      confirmPassword: "secure_password123",
+    });
+
+    const response = await request(app).post("/login").send({
+      username: "test_user",
+      password: "secure_password123",
+    });
+    expect(response.status).toEqual(200);
   });
 });

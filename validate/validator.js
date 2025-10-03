@@ -1,5 +1,5 @@
 import { body, validationResult } from "express-validator";
-import prisma from "../db/prisma";
+import prisma from "../db/prisma.js";
 
 const createUser = [
   body("username")

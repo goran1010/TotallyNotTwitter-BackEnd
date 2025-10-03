@@ -11,7 +11,7 @@ const sessionMiddleware = expressSession({
   },
   secret: COOKIE_SECRET,
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: new PrismaSessionStore(prisma, {
     checkPeriod: 2 * 60 * 1000,
     dbRecordIdIsSessionId: true,

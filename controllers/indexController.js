@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
-import prisma from "../db/prisma";
-import passport from "../auth/passport";
+import prisma from "../db/prisma.js";
+import passport from "../auth/passport.js";
 
 export function root(req, res) {
   res.status(200).json({ message: "OK" });
@@ -30,6 +30,7 @@ export function logIn(req, res, next) {
     }
 
     req.logIn(user, (err) => {
+      console.log(err);
       if (err) return next(err);
       return res.json({
         message: "Logged in successfully",
