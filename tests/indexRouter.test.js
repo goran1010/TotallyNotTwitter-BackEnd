@@ -66,6 +66,7 @@ describe("POST /signup route", () => {
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(201);
+    expect(response.body.message).toEqual("User created successfully");
   });
 });
 

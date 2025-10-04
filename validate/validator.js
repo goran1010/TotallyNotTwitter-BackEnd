@@ -15,6 +15,11 @@ const createUser = [
       }
       return true;
     }),
+  body("email")
+    .trim()
+    .notEmpty()
+    .isEmail()
+    .withMessage("Invalid email address"),
   body("password")
     .trim()
     .notEmpty()
