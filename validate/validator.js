@@ -4,6 +4,8 @@ import prisma from "../db/prisma.js";
 const createUser = [
   body("username")
     .trim()
+    .notEmpty()
+    .withMessage("Username is required")
     .isLength({ min: 5, max: 30 })
     .withMessage(`Username has to be between 5 and 30 characters long`)
     .custom(async (value) => {
@@ -18,11 +20,13 @@ const createUser = [
   body("email")
     .trim()
     .notEmpty()
+    .withMessage("Email is required")
     .isEmail()
     .withMessage("Invalid email address"),
   body("password")
     .trim()
     .notEmpty()
+    .withMessage("Password is required")
     .isLength({ min: 5, max: 30 })
     .withMessage("Password must be between 5 and 30 characters long"),
   body("confirmPassword")
@@ -46,11 +50,14 @@ const createUser = [
 const logInUser = [
   body("username")
     .trim()
+    .notEmpty()
+    .withMessage("Username is required")
     .isLength({ min: 5, max: 30 })
     .withMessage(`Username has to be between 5 and 30 characters long`),
   body("password")
     .trim()
     .notEmpty()
+    .withMessage("Password is required")
     .isLength({ min: 5, max: 30 })
     .withMessage("Password must be between 5 and 30 characters long"),
   (req, res, next) => {
