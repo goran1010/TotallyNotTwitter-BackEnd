@@ -2,10 +2,6 @@ import bcrypt from "bcryptjs";
 import prisma from "../db/prisma.js";
 import passport from "../auth/passport.js";
 
-export function root(req, res) {
-  res.status(200).json({ message: "OK" });
-}
-
 export async function signUp(req, res) {
   try {
     const { username, email, password } = req.body;

@@ -6,15 +6,6 @@ beforeEach(async () => {
   await prisma.user.deleteMany();
 });
 
-describe("GET / route", () => {
-  test("responds with json 200", async () => {
-    const response = await request(app).get("/");
-    expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.status).toEqual(200);
-    expect(response.body.message).toEqual("OK");
-  });
-});
-
 describe("POST /signup route", () => {
   test("responds with json 400, Username already exists, if given username exists", async () => {
     await prisma.user.create({

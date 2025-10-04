@@ -4,6 +4,7 @@ import "dotenv/config";
 const app = express();
 import sessionMiddleware from "./auth/sessionMiddleware.js";
 import cors from "cors";
+import isNotLoggedIn from "./auth/isNotLoggedIn.js";
 
 app.use(cors());
 
@@ -22,7 +23,7 @@ app.use(sessionMiddleware);
 app.use(passport.session());
 
 app.use("/status", statusRouter);
-app.use("/", indexRouter);
+app.use("/", isNotLoggedIn, indexRouter);
 
 app.use((req, res) => {
   res.status(404).json("No resource found");
