@@ -68,6 +68,31 @@ describe("POST /signup route", () => {
     expect(response.status).toEqual(201);
     expect(response.body.message).toEqual("User created successfully");
   });
+
+  test("responds with json 403, You are already Logged in, if user is already logged in", async () => {
+    const agent = request.agent(app);
+
+    await agent.post("/signup").send({
+      username: "test_user",
+      email: "testuser@example.com",
+      password: "secure_password123",
+      confirmPassword: "secure_password123",
+    });
+
+    await agent
+      .post("/login")
+      .send({ username: "test_user", password: "secure_password123" });
+
+    const response = await agent.post("/signup").send({
+      username: "test_user2",
+      email: "testuser@example.com",
+      password: "secure_password123",
+      confirmPassword: "secure_password123",
+    });
+
+    expect(response.status).toEqual(403);
+    expect(response.body.message).toEqual("You are already logged in");
+  });
 });
 
 describe("POST /login route", () => {
@@ -84,5 +109,30 @@ describe("POST /login route", () => {
       password: "secure_password123",
     });
     expect(response.status).toEqual(200);
+    expect(response.body.message).toEqual("Logged in successfully");
+  });
+
+  test("responds with status 403 if user is already logged in", async () => {
+    const agent = request.agent(app);
+
+    await agent.post("/signup").send({
+      username: "test_user",
+      email: "testuser@example.com",
+      password: "secure_password123",
+      confirmPassword: "secure_password123",
+    });
+
+    await agent.post("/login").send({
+      username: "test_user",
+      password: "secure_password123",
+    });
+
+    const response = await agent.post("/login").send({
+      username: "test_user",
+      password: "secure_password123",
+    });
+
+    expect(response.status).toEqual(403);
+    expect(response.body.message).toEqual("You are already logged in");
   });
 });
