@@ -16,12 +16,14 @@ describe("POST /signup route", () => {
       },
     });
 
-    const response = await request(app).post("/signup").send({
-      username: "test_user",
-      email: "testuser@example.com",
-      password: "secure_password123",
-      confirmPassword: "secure_password123",
-    });
+    const response = await request(app)
+      .post("/signup")
+      .send({
+        username: "test_user",
+        email: "testuser@example.com",
+        password: "secure_password123",
+        ["confirm-password"]: "secure_password123",
+      });
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(400);
@@ -29,12 +31,14 @@ describe("POST /signup route", () => {
   });
 
   test("responds with json 400, Password must be between 5 and 30 characters long if no correct password", async () => {
-    const response = await request(app).post("/signup").send({
-      username: "test_user",
-      email: "testuser@example.com",
-      password: "sec",
-      confirmPassword: "sec",
-    });
+    const response = await request(app)
+      .post("/signup")
+      .send({
+        username: "test_user",
+        email: "testuser@example.com",
+        password: "sec",
+        ["confirm-password"]: "sec",
+      });
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(400);
@@ -44,12 +48,14 @@ describe("POST /signup route", () => {
   });
 
   test("responds with json 400, passwords need to match, when passwords don't match", async () => {
-    const response = await request(app).post("/signup").send({
-      username: "test_user",
-      email: "testuser@example.com",
-      password: "secure_password123",
-      confirmPassword: "different_password",
-    });
+    const response = await request(app)
+      .post("/signup")
+      .send({
+        username: "test_user",
+        email: "testuser@example.com",
+        password: "secure_password123",
+        ["confirm-password"]: "different_password",
+      });
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(400);
@@ -57,12 +63,14 @@ describe("POST /signup route", () => {
   });
 
   test("responds with json 201 when valid data is provided", async () => {
-    const response = await request(app).post("/signup").send({
-      username: "test_user",
-      email: "testuser@example.com",
-      password: "secure_password123",
-      confirmPassword: "secure_password123",
-    });
+    const response = await request(app)
+      .post("/signup")
+      .send({
+        username: "test_user",
+        email: "testuser@example.com",
+        password: "secure_password123",
+        ["confirm-password"]: "secure_password123",
+      });
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(201);
@@ -76,7 +84,7 @@ describe("POST /signup route", () => {
       username: "test_user",
       email: "testuser@example.com",
       password: "secure_password123",
-      confirmPassword: "secure_password123",
+      ["confirm-password"]: "secure_password123",
     });
 
     await agent
@@ -87,7 +95,7 @@ describe("POST /signup route", () => {
       username: "test_user2",
       email: "testuser@example.com",
       password: "secure_password123",
-      confirmPassword: "secure_password123",
+      ["confirm-password"]: "secure_password123",
     });
 
     expect(response.status).toEqual(403);
@@ -97,12 +105,14 @@ describe("POST /signup route", () => {
 
 describe("POST /login route", () => {
   test("responds with status 200 if user correctly logged in", async () => {
-    await request(app).post("/signup").send({
-      username: "test_user",
-      email: "testuser@example.com",
-      password: "secure_password123",
-      confirmPassword: "secure_password123",
-    });
+    await request(app)
+      .post("/signup")
+      .send({
+        username: "test_user",
+        email: "testuser@example.com",
+        password: "secure_password123",
+        ["confirm-password"]: "secure_password123",
+      });
 
     const response = await request(app).post("/login").send({
       username: "test_user",
@@ -119,7 +129,7 @@ describe("POST /login route", () => {
       username: "test_user",
       email: "testuser@example.com",
       password: "secure_password123",
-      confirmPassword: "secure_password123",
+      ["confirm-password"]: "secure_password123",
     });
 
     await agent.post("/login").send({

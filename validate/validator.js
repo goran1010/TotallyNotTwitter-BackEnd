@@ -29,9 +29,10 @@ const createUser = [
     .withMessage("Password is required")
     .isLength({ min: 5, max: 30 })
     .withMessage("Password must be between 5 and 30 characters long"),
-  body("confirmPassword")
+  body("confirm-password")
     .trim()
     .notEmpty()
+    .withMessage("Confirm password is required")
     .custom((value, { req }) => {
       if (value !== req.body.password) {
         throw new Error("Passwords need to match");
