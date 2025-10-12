@@ -8,6 +8,8 @@ import prisma from "../db/prisma.js";
 const sessionMiddleware = expressSession({
   cookie: {
     maxAge: NUMBER_OF_DAYS * 24 * 60 * 60 * 1000,
+    sameSite: "none",
+    secure: false,
   },
   secret: COOKIE_SECRET,
   resave: false,
