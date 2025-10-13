@@ -7,6 +7,7 @@ import cors from "cors";
 import isNotLoggedIn from "./auth/isNotLoggedIn.js";
 import indexRouter from "./routes/indexRouter.js";
 import statusRouter from "./routes/statusRouter.js";
+import isLoggedIn from "./auth/isLoggedIn.js";
 
 app.use(
   cors({
@@ -26,7 +27,7 @@ app.use(express.static(assetsPath));
 app.use(sessionMiddleware);
 app.use(passport.session());
 
-app.use("/status", statusRouter);
+app.use("/status", isLoggedIn, statusRouter);
 app.use("/", isNotLoggedIn, indexRouter);
 
 app.use((req, res) => {
