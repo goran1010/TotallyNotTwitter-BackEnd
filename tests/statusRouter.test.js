@@ -1,16 +1,37 @@
-import express from "express";
-const app = express();
+import app from "../app.js";
 import request from "supertest";
-import statusRouter from "../routes/statusRouter";
+import prisma from "../db/prisma.js";
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use("/", statusRouter);
+beforeEach(async () => {
+  await prisma.user.deleteMany();
+});
 
 describe("GET /status route", () => {
   test("responds with json 403 when not logged in", async () => {
-    const response = await request(app).get("/");
+    const response = await request(app).get("/status");
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(403);
+  });
+
+  test("responds with json 200 and user info when logged in", async () => {
+    const agent = request.agent(app);
+
+    await agent.post("/signup").send({
+      username: "test_user",
+      email: "testuser@example.com",
+      password: "secure_password123",
+      ["confirm-password"]: "secure_password123",
+    });
+
+    await agent
+      .post("/login")
+      .send({ username: "test_user", password: "secure_password123" })
+      .expect(200);
+
+    const response = await agent.get("/status");
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.status).toEqual(200);
+    expect(response.body).toHaveProperty("id");
+    expect(response.body).toHaveProperty("username", "test_user");
   });
 });
