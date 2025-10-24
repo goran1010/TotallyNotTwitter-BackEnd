@@ -4,8 +4,8 @@ import * as statusController from "../controllers/statusController.js";
 
 statusRouter.get("/", statusController.status);
 
-statusRouter.get("/update-profile", statusController.updateProfile);
+statusRouter.post("/update-profile", statusController.updateProfile);
 
-statusRouter.get("/logout", statusController.logout);
+statusRouter.post("/logout", statusController.logout);
 
 export default statusRouter;
