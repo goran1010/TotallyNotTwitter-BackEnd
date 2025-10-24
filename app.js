@@ -8,6 +8,7 @@ import isNotLoggedIn from "./auth/isNotLoggedIn.js";
 import indexRouter from "./routes/indexRouter.js";
 import statusRouter from "./routes/statusRouter.js";
 import isLoggedIn from "./auth/isLoggedIn.js";
+import apiRouter from "./routes/apiRouter.js";
 
 app.use(
   cors({
@@ -28,6 +29,7 @@ app.use(sessionMiddleware);
 app.use(passport.session());
 
 app.use("/status", isLoggedIn, statusRouter);
+app.use("/api", apiRouter);
 app.use("/", isNotLoggedIn, indexRouter);
 
 app.use((req, res) => {
