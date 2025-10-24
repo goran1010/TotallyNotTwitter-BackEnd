@@ -33,6 +33,6 @@ model Profile {
   firstName String?
   lastName  String?
   avatar    String?
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String  @unique
 }
