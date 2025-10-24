@@ -3,9 +3,9 @@ import prisma from "../db/prisma.js";
 export async function getProfile(req, res) {
   try {
     const { userId } = req.body;
-    console.log(userId);
-
-    const profile = await prisma.profile.findUnique({ where: { userId } });
+    const profile = await prisma.profile.findUniqueOrThrow({
+      where: { userId },
+    });
     res.json(profile);
   } catch (err) {
     // eslint-disable-next-line no-console
