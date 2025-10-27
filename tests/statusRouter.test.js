@@ -12,8 +12,10 @@ describe("GET /status route", () => {
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(403);
   });
+});
 
-  test("responds with json 200 and user info when logged in", async () => {
+describe("POST /status route", () => {
+  test("/login responds with json 200 and user info when logged in", async () => {
     const agent = request.agent(app);
 
     await agent.post("/signup").send({
@@ -35,7 +37,7 @@ describe("GET /status route", () => {
     expect(response.body).toHaveProperty("username", "test_user");
   });
 
-  test("responds with json 200 when logged out successfully", async () => {
+  test("/logout responds with json 200 when logged out successfully", async () => {
     const agent = request.agent(app);
 
     await agent.post("/signup").send({
