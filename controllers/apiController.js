@@ -2,7 +2,7 @@ import prisma from "../db/prisma.js";
 
 export async function getProfile(req, res) {
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
     const profile = await prisma.profile.findUniqueOrThrow({
       where: { userId },
     });
