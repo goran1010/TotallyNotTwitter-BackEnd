@@ -12,6 +12,7 @@ export function logout(req, res, next) {
   });
 }
 
-export function updateProfile() {
-  //code here
+export function updateProfile(req, res) {
+  const { userId, avatar, firstName, lastName } = req.body;
+  res.json({ userId, avatar, firstName, lastName });
 }
