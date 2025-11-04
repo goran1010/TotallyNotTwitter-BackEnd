@@ -1,6 +1,6 @@
 # Express Prisma Backend Template
 
-Back-end for my Totally Not Twitter app built with Node, Express and Prisma.
+Back-end for Totally Not Twitter app built with Node, Express and Prisma.
 
 A very simple project with session based auth using Passport, ability to customize your Profile, add and follow people and like and comment on posts.
 
