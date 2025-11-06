@@ -56,7 +56,7 @@ npm run test
 - `DATABASE_URL`: PostgreSQL URL for development database
 - `TEST_DATABASE_URL`: PostgreSQL URL for test database
 - `SECRET`: Session secret key
-- `PORT`: Server port (defaults to 3000)
+- `SUPABASE_KEY`: Your Supabase API key
 
 ## License
 
