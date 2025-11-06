@@ -8,7 +8,7 @@ statusRouter.get("/", statusController.status);
 
 statusRouter.put(
   "/update-profile",
-  upload.single("my-file"),
+  upload.single("avatar"),
   statusController.updateProfile,
 );
 
