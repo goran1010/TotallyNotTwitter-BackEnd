@@ -33,27 +33,25 @@ export async function updateProfile(req, res) {
           .slice(-2)
           .join("/");
 
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
           .from("avatars")
           .remove([currentAvatarPath]);
         if (error) {
+          // eslint-disable-next-line no-console
           console.error("Error removing old avatar:", error);
-        } else {
-          console.log("Old avatar removed:", data);
         }
       }
 
       const ext = req.file.originalname.split(".").pop();
       const filePath = `${userId}/${crypto.randomUUID()}.${ext}`;
 
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from("avatars")
         .upload(filePath, buffer, {
           contentType: req.file.mimetype,
           upsert: true,
         });
 
-      console.log(data);
       if (error) {
         // eslint-disable-next-line no-console
         console.error("Error uploading file:", error);
